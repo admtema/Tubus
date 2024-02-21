@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${title}"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+</head>
+<style>
+  .error-text {
+    color: crimson;
+  }
+</style>
+<body class="text-center">
+
+<div class="container mb-5">
+  <div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Регистрация сотрудника</h4>
+
+    <form class="needs-validation" th:action="@{/registration}" th:object="${userForm}" method="post">
+      <div class="mb-3">
+        <label>Пользовательское имя</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">@</span>
+          </div>
+          <input type="text" name="firstName" th:field="*{user.username}" class="form-control" placeholder="Username">
+          <div th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}" class="error-text">
+            <p th:text="${usernameError}" class ="error-text"></p>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Придумайте пароль <span class="text-muted">(Не менее 5 знаков)</span></label>
+        <p th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}" class ="error-text">Ошибка</p>
+        <input type="password" name="password" th:field="*{user.password}" placeholder="Пароль" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label>Повторите пароль</label>
+        <p th:if="${#fields.hasErrors('user.passwordConfirm')}" th:errors="*{user.passwordConfirm}" class ="error-text">Ошибка</p>
+        <p th:text="${passwordError}" class ="error-text"></p>
+        <input type="password" name="passwordConfirm" th:field="*{user.passwordConfirm}" placeholder="Повтор пароля" class="form-control"><br>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label>Фамилия</label>
+          <input type="text" name="lastName" th:field="*{userDetail.lastName}" class="form-control" placeholder="">
+          <p th:if="${#fields.hasErrors('userDetail.lastName')}" th:errors="*{userDetail.lastName}" class="error-text">Ошибка</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Имя</label>
+          <input type="text" name="firstName" th:field="*{userDetail.firstName}" class="form-control" placeholder="">
+          <p th:if="${#fields.hasErrors('userDetail.firstName')}" th:errors="*{userDetail.firstName}" class="error-text">Ошибка</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label>Отчество</label>
+          <input type="text" name="firstName" th:field="*{userDetail.patronymic}" class="form-control" placeholder="">
+          <p th:if="${#fields.hasErrors('userDetail.patronymic')}" th:errors="*{userDetail.patronymic}" class="error-text">Ошибка</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 mb-3">
+          <label>Подразделение</label>
+          <select th:field="*{userDetail.department}" class="custom-select d-block w-100" name="department">
+            <option th:value="''">Выбрать...</option>
+            <option th:value="'Конструкторский отдел'">Конструкторский отдел</option>
+            <option th:value="'Технологический отдел'">Технологический отдел</option>
+            <option th:value="'Отдел стандартизации и нормоконтроля'">Отдел стандартизации и нормоконтроля</option>
+            <option th:value="'Отдел технической документации'">Отдел технической документации</option>
+          </select>
+          <p th:if="${#fields.hasErrors('userDetail.department')}" th:errors="*{userDetail.department}" class ="error-text">Ошибка</p>
+        </div>
+
+        <div class="col-md-5 mb-3">
+          <label>Должность</label>
+          <select th:field="*{userDetail.position}" class="custom-select d-block w-100" name="position">
+            <option th:value="''">Выбрать...</option>
+            <option th:value="'Инженер-конструктор 3к'">Инженер-конструктор 3к</option>
+            <option th:value="'Инженер-конструктор 2к'">Инженер-конструктор 2к</option>
+            <option th:value="'Инженер-конструктор 1к'">Инженер-конструктор 1к</option>
+            <option th:value="'Ведущий инженер-конструктор'">Ведущий инженер-конструктор</option>
+            <option th:value="'Главный конструктор проекта'">Главный конструктор проекта</option>
+            <option th:value="'Начальник конструкторского отдела'">Начальник конструкторского отдела</option>
+            <option th:value="'Инженер-технолог'">Инженер-технолог</option>
+            <option th:value="'Ведущий инженер-технолог'">Ведущий инженер-технолог</option>
+            <option th:value="'Начальник технологического отдела'">Начальник технологического отдела</option>
+            <option th:value="'Нормоконтролер'">Нормоконтролер</option>
+            <option th:value="'Нач. отд. стандартизации и нормоконтроля'">Нач. отд. стандартизации и нормоконтроля</option>
+            <option th:value="'Сотрудник архива'">Сотрудник архива</option>
+            <option th:value="'Главный архивариус'">Главный архивариус</option>
+          </select>
+          <p th:if="${#fields.hasErrors('userDetail.position')}" th:errors="*{userDetail.position}" class ="error-text">Ошибка</p>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label>Внутренний тел.</label>
+          <p th:if="${#fields.hasErrors('userDetail.phoneNumber')}" th:errors="*{userDetail.phoneNumber}" class ="error-text">Ошибка</p>
+          <input type="text" name="phoneNumber" th:field="*{userDetail.phoneNumber}" placeholder="0000" class="form-control">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">Зарегистрировать</button>
+    </form>
+
+    <br>
+    <a href="/users" align="center">Отмена</a></p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+  <h1>Регистрация</h1>
+  <form action="#" th:action="@{/registration}" th:object="${userForm}" method="post">
+    <p>Введите пользовательское имя</p>
+    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class ="error-text">Ошибка</p>
+    <p th:text="${usernameError}" class ="error-text"></p>
+    <input type="text" name="username" th:field="*{username}" placeholder="Пользовательское имя" class="form-control">
+    <br>
+    <p>Придумайте пароль</p>
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class ="error-text">Ошибка</p>
+    <input type="text" name="password" th:field="*{password}" placeholder="Пароль" class="form-control">
+    <br>
+    <p>Повторите пароль</p>
+    <p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" class ="error-text">Ошибка</p>
+    <p th:text="${passwordError}" class ="error-text"></p>
+    <input type="text" name="passwordConfirm" th:field="*{passwordConfirm}" placeholder="Повтор пароля" class="form-control"><br>
+    <h2>Форма заполнения публичных данных сотрудника</h2>
+    <hr>
+    <p>Введите фамилию</p>
+    <p th:if="${#fields.hasErrors('userDetail.lastName')}" th:errors="*{userDetail.lastName}" class ="error-text">Ошибка</p>
+    <p th:text="${lastNameError}" class ="error-text"></p>
+    <input type="text" name="lastName" th:field="*{userDetail.lastName}" placeholder="Фамилия сотрудника" class="form-control">
+    <br>
+    <p>Введите имя</p>
+    <p th:if="${#fields.hasErrors('userDetail.firstName')}" th:errors="*{userDetail.firstName}" class ="error-text">Ошибка</p>
+    <p th:text="${firstNameError}" class ="error-text"></p>
+    <input type="text" name="firstName" th:field="*{userDetail.firstName}" placeholder="Имя сотрудника" class="form-control">
+    <br>
+    <p>Введите отчество</p>
+    <p th:if="${#fields.hasErrors('userDetail.patronymic')}" th:errors="*{userDetail.patronymic}" class ="error-text">Ошибка</p>
+    <p th:text="${patronymicError}" class ="error-text"></p>
+    <input type="text" name="patronymic" th:field="*{userDetail.patronymic}" placeholder="Отчество" class="form-control"><br>
+    <br>
+    <p>Введите внутренний номер телефона</p>
+    <p th:if="${#fields.hasErrors('userDetail.phoneNumber')}" th:errors="*{userDetail.phoneNumber}" class ="error-text">Ошибка</p>
+    <p th:text="${phoneNumberError}" class ="error-text"></p>
+    <input type="text" name="phoneNumber" th:field="*{userDetail.phoneNumber}" placeholder="1234" class="form-control">
+    <br>
+    <p>Введите подразделение</p>
+    <p th:if="${#fields.hasErrors('userDetail.department')}" th:errors="*{userDetail.department}" class ="error-text">Ошибка</p>
+    <p th:text="${departmentError}" class ="error-text"></p>
+    <input type="text" name="department" th:field="*{userDetail.department}" placeholder="Подразделение сотрудника" class="form-control"><br>
+    <br>
+    <p>Введите должность</p>
+    <p th:if="${#fields.hasErrors('userDetail.position')}" th:errors="*{userDetail.position}" class ="error-text">Ошибка</p>
+    <p th:text="${departmentError}" class ="error-text"></p>
+    <input type="text" name="position" th:field="*{userDetail.position}" placeholder="Должность сотрудника" class="form-control"><br>
+    <button type="submit" class="btn btn-success">Зарегистрировать</button>
+  </form>
