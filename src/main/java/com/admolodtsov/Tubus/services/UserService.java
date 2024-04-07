@@ -47,15 +47,36 @@ public class UserService implements UserDetailsService {
     }
     public boolean saveUser(User user){
         User userFromDb = userRepository.findByUsername(user.getUsername());
-
         if(userFromDb != null){
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        switch (user.getUserDetail().getDepartment()) {
+//            case "Конструкторский отдел" -> user.setRoles(Collections.singleton(new Role(1L, "ROLE_DESIGNER")));
+            case "Отдел информатизации" -> user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
+            case "Технологический отдел" -> user.setRoles(Collections.singleton(new Role(3L, "ROLE_TECHNOLOGIST")));
+            case "Отдел стандартизации и нормоконтроля" ->
+                    user.setRoles(Collections.singleton(new Role(4L, "ROLE_STANDARDS_INSPECTOR")));
+            case "Отдел технической документации" ->
+                    user.setRoles(Collections.singleton(new Role(5L, "ROLE_ARCHIVIST")));
+            default -> user.setRoles(Collections.singleton(new Role(1L, "ROLE_DESIGNER")));
+        }
+
+//        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
+    public boolean updateUser(User user){
+        User userFromDb = userRepository.findByUsername(user.getUsername());
+        if(userFromDb != null && !userFromDb.getId().equals(user.getId())){
+            return false;
+        }
+//        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
     public boolean deleteUser(Long userId){
         if (userRepository.findById(userId).isPresent()){
             userRepository.deleteById(userId);
@@ -73,4 +94,6 @@ public class UserService implements UserDetailsService {
                 "SELECT u FROM User u WHERE u.id > : paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
     }
+
+
 }

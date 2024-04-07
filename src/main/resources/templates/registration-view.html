@@ -24,9 +24,8 @@
             <span class="input-group-text">@</span>
           </div>
           <input type="text" name="firstName" th:field="*{user.username}" class="form-control" placeholder="Username">
-          <div th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}" class="error-text">
+          <p th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}" class="error-text">Ошибка</p>
             <p th:text="${usernameError}" class ="error-text"></p>
-          </div>
         </div>
       </div>
       <div class="mb-3">
@@ -62,11 +61,12 @@
         <div class="col-md-5 mb-3">
           <label>Подразделение</label>
           <select th:field="*{userDetail.department}" class="custom-select d-block w-100" name="department">
-            <option th:value="''">Выбрать...</option>
+            <option th:value="'userDetail.department'" th:text="*{userDetail.department}"></option>
             <option th:value="'Конструкторский отдел'">Конструкторский отдел</option>
             <option th:value="'Технологический отдел'">Технологический отдел</option>
             <option th:value="'Отдел стандартизации и нормоконтроля'">Отдел стандартизации и нормоконтроля</option>
             <option th:value="'Отдел технической документации'">Отдел технической документации</option>
+            <option th:value="'Отдел информатизации'">Отдел информатизации</option>
           </select>
           <p th:if="${#fields.hasErrors('userDetail.department')}" th:errors="*{userDetail.department}" class ="error-text">Ошибка</p>
         </div>
@@ -74,7 +74,7 @@
         <div class="col-md-5 mb-3">
           <label>Должность</label>
           <select th:field="*{userDetail.position}" class="custom-select d-block w-100" name="position">
-            <option th:value="''">Выбрать...</option>
+            <option th:value="'userDetail.position'" th:text="*{userDetail.position}"></option>
             <option th:value="'Инженер-конструктор 3к'">Инженер-конструктор 3к</option>
             <option th:value="'Инженер-конструктор 2к'">Инженер-конструктор 2к</option>
             <option th:value="'Инженер-конструктор 1к'">Инженер-конструктор 1к</option>
@@ -88,6 +88,7 @@
             <option th:value="'Нач. отд. стандартизации и нормоконтроля'">Нач. отд. стандартизации и нормоконтроля</option>
             <option th:value="'Сотрудник архива'">Сотрудник архива</option>
             <option th:value="'Главный архивариус'">Главный архивариус</option>
+            <option th:value="'Администратор'">Администратор</option>
           </select>
           <p th:if="${#fields.hasErrors('userDetail.position')}" th:errors="*{userDetail.position}" class ="error-text">Ошибка</p>
         </div>

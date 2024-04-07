@@ -62,9 +62,7 @@ public class UserDetail {
     public UserDetail() {
     }
 
-    public UserDetail(int personnelNumber, User user, String firstName, String lastName, String patronymic, String phoneNumber, String department, String position) {
-        this.personnelNumber = personnelNumber;
-        this.user = user;
+    public UserDetail(String firstName, String lastName, String patronymic, String phoneNumber, String department, String position) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.patronymic = patronymic;

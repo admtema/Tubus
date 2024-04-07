@@ -26,9 +26,10 @@ public class User implements UserDetails {
 
     @NotBlank(message ="поле обязательное для заполнения")
     @Size(min=5, message = "Пароль должен содержать меньше 5 знаков")
+
     private String password;
 
-    @NotBlank(message ="поле обязательное для заполнения")
+
     @Transient
     private String passwordConfirm;
 
@@ -59,7 +60,6 @@ public class User implements UserDetails {
 
     public User() {
     }
-
 
 
     @Override
