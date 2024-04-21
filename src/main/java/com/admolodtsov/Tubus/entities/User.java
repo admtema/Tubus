@@ -57,10 +57,8 @@ public class User implements UserDetails {
         designProject.setUser(null);
     }
 
-
     public User() {
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

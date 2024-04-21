@@ -32,7 +32,7 @@ public class RegistrationController {
         UserDetail userDetail = new UserDetail();
         UserForm userForm = new UserForm(user, userDetail);
         model.addAttribute(userForm);
-        return "registration-view";
+        return "users/registration-view";
         }
 
     @PostMapping("/registration")
@@ -44,16 +44,16 @@ public class RegistrationController {
         user.setUserDetail(userForm.getUserDetail());
         //Если есть ошибки валидации вернуть страницу регистрации
         if(bindingResult.hasErrors()){
-            return "registration-view";
+            return "users/registration-view";
         }
         if(!user.getPassword().equals(user.getPasswordConfirm())){
             model.addAttribute("passwordError", "Введенные пароли не совпадают");
-            return "registration-view";
+            return "users/registration-view";
         }
         //Пробуем сохранить пользователя
         if(!userService.saveUser(user)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration-view";
+            return "users/registration-view";
         }
         //Сохраняем информацию о пользователе
             userDetailService.saveUserDetail(user.getUserDetail());

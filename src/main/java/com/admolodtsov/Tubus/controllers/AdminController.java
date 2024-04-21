@@ -30,9 +30,10 @@ public class AdminController {
 
     @GetMapping("/users")
     public String showUserList(Model model) {
+        model.addAttribute("username", MainController.getCurrentUsername());
         List<User> allUsers = userService.getAllUsers();
         model.addAttribute("allUsers", allUsers);
-        return "users-view";
+        return "users/users-view";
     }
 
 
@@ -44,7 +45,7 @@ public class AdminController {
         User user = userService.findUserById(userId);
         UserForm userForm = new UserForm(user, user.getUserDetail());
         model.addAttribute("userForm", userForm);
-        return "user-edit-view";
+        return "users/user-edit-view";
     }
 
     @PostMapping("/users/{userId}/edit")
@@ -56,13 +57,13 @@ public class AdminController {
         newUserForm.getUser().setUserDetail(newUserForm.getUserDetail());
         //Если есть ошибки валидации вернуть страницу редактирования
         if(bindingResult.hasErrors()){
-            return "user-edit-view";
+            return "users/user-edit-view";
         }
 
         //Если не совпадают пароли, вернуть страницу редактирования
         if(!newUserForm.getUser().getPassword().equals(newUserForm.getUser().getPasswordConfirm())){
             model.addAttribute("passwordError", "Введенные пароли не совпадают");
-            return "user-edit-view";
+            return "users/user-edit-view";
         }
         User user = userService.findUserById(userId);
         user.setUsername(newUserForm.getUser().getUsername());
@@ -78,7 +79,7 @@ public class AdminController {
         //Пробуем сохранить обновленного пользователя
         if(!userService.updateUser(user)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "user-edit-view";
+            return "users/user-edit-view";
         }
 //        Сохраняем обновленную информацию о пользователе
         userDetailService.updateUserDetail(user.getUserDetail());
